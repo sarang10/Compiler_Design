@@ -1,0 +1,26 @@
+Non-recursive predictive parser, also known as table driven parser or simply LL (1) parser is a type 
+of Top-Down parser which does not allow ambiguity or left recursion in the grammar.
+A non-recursive predictive parser is built by maintaining an explicit stack and using the parsing table. 
+The non-recursive LL(1) parser looks up the production to apply by looking up a parsing table. 
+The LL(1) table has one dimension for current non-terminal to expand and another dimension for next token.
+Each table cell contains one production.The empty cells in the parsing table indicate errors. 
+Also more than one productions in a cell of a table also indicate ambiguity.
+The output of parsing is the set of productions to be used. Such a parser is called a table-driven parser.
+Top-down parsing is almost always combined with lookahead. Lookahead of one token helps a lot in making decisions 
+while selecting a production.There can be two types of errors in this type of parsing: 
+T-conflict (terminal appearing on the top of stack does not match the following input token) and 
+N-conflict (for a non-terminal B on top of stack and the look-ahead token b the entry M [B, b] of the parsing table is empty).
+
+
+
+ALGORITHM:
+
+Rules for making non-recursive predictive parser
+1) If X=a=$ where X is the top of the stack and a is on the input buffer then the parser halts and announces
+successful parsing.
+2) If X=a!=$ then the parser pops X from the stack and advances the input pointer to point to the next symbol
+in the input buffer.
+3) If X!=a!=$ the program consults M [X, a] of the parsing table M. This entry will be a X production of the grammar
+or it will be error.
+If M [X, a] = {X -> UVW} then parser will replace the X by W, V, U and U will be on the top of stack.
+Since it has used some production from table M, the output will be this production rule.
